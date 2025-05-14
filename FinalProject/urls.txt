@@ -1,0 +1,10 @@
+# Sample URLs for testing
+google.com
+github.com
+microsoft.com
+rust-lang.org
+# This is a comment
+# Empty lines should be ignored
+
+example.com
+nonexistentwebsite123456.com

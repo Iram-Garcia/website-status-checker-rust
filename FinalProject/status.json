@@ -1,0 +1,8 @@
+[
+  { "url": "nonexistentwebsite123456.com", "result": { "error": "error sending request for url (http://nonexistentwebsite123456.com/): error trying to connect: dns error: No such host is known. (os error 11001)" }, "response_time_ms": 53, "timestamp": "2025-05-14T04:41:56.904Z" },
+  { "url": "example.com", "result": { "status": 200 }, "response_time_ms": 185, "timestamp": "2025-05-14T04:41:57.036Z" },
+  { "url": "github.com", "result": { "status": 200 }, "response_time_ms": 372, "timestamp": "2025-05-14T04:41:57.223Z" },
+  { "url": "microsoft.com", "result": { "status": 200 }, "response_time_ms": 401, "timestamp": "2025-05-14T04:41:57.252Z" },
+  { "url": "google.com", "result": { "status": 200 }, "response_time_ms": 628, "timestamp": "2025-05-14T04:41:57.479Z" },
+  { "url": "rust-lang.org", "result": { "status": 200 }, "response_time_ms": 633, "timestamp": "2025-05-14T04:41:57.484Z" }
+]
