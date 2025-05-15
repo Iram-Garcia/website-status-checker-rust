@@ -7,9 +7,9 @@ use std::time::{Duration, Instant, SystemTime};
 use clap::Parser;
 use num_cpus;
 
-/// Website Status Checker - A concurrent tool to check website availability
 #[derive(Parser, Debug)]
 #[clap(author, version, about)]
+//struct for command line arguments
 struct Args {
     /// URLs to check (can specify multiple)
     #[clap(value_name = "URLs")]
@@ -32,6 +32,7 @@ struct Args {
     retries: u32,
 }
 
+//struct to hold the website status
 #[derive(Debug)]
 struct WebsiteStatus {
     url: String,                 // original URL
@@ -40,6 +41,7 @@ struct WebsiteStatus {
     timestamp: SystemTime        // when the attempt completed
 }
 
+//implementing the WebsiteStatus struct
 impl WebsiteStatus {
     fn to_json(&self) -> String {
         let status = match &self.action_status {
@@ -67,14 +69,17 @@ impl WebsiteStatus {
         };
         
         format!(
+            //formatting the response output
             "{} - {} - Response time: {} ms",
             self.url,
             status,
+        
             self.response_time.as_millis()
         )
     }
 }
 
+//Function to check the website status
 fn check_website(url: &str, timeout_secs: u64, retries: u32) -> WebsiteStatus {
     let client = reqwest::blocking::Client::builder()
         .timeout(Duration::from_secs(timeout_secs))
@@ -94,6 +99,7 @@ fn check_website(url: &str, timeout_secs: u64, retries: u32) -> WebsiteStatus {
     return status;
 }
 
+//Function to make the actual HTTP request
 fn make_request(client: &reqwest::blocking::Client, url: &str) -> WebsiteStatus {
     let start_time = Instant::now();
     let mut full_url = url.to_string();
@@ -116,6 +122,7 @@ fn make_request(client: &reqwest::blocking::Client, url: &str) -> WebsiteStatus 
     }
 }
 
+//Function to read URLs from a file
 fn read_urls_from_file(file_path: &str) -> Result<Vec<String>, String> {
     let path = Path::new(file_path);
     let file = match File::open(path) {
@@ -143,11 +150,14 @@ fn read_urls_from_file(file_path: &str) -> Result<Vec<String>, String> {
 }
 
 fn main() -> Result<(), String> {
+    //initialize command line arguments
     let args = Args::parse();
     
     // Collect URLs from command line and file
     let mut urls = args.urls.clone();
     
+    // Check if file argument is provided
+    // If so, read URLs from the file
     if let Some(file_path) = args.file {
         match read_urls_from_file(&file_path) {
             Ok(file_urls) => urls.extend(file_urls),
@@ -155,6 +165,8 @@ fn main() -> Result<(), String> {
         }
     }
     
+    // Check if URLs are provided
+    // If not, return an error
     if urls.is_empty() {
         return Err("No URLs provided. Use positional arguments or --file option.".to_string());
     }

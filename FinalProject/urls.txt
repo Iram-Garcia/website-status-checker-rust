@@ -6,5 +6,5 @@ rust-lang.org
 # This is a comment
 # Empty lines should be ignored
 
-example.com
-nonexistentwebsite123456.com
+SystemProgramingTheBest.com
+UtrgvExampleWebsite.com
